@@ -1,33 +1,33 @@
 const router = require('express').Router()
 const passport = require('../config/auth')
-const { Game } = require('../models')
+const { Batch } = require('../models')
 const utils = require('../lib/utils')
 
 const authenticate = passport.authorize('jwt', { session: false })
 
 module.exports = io => {
   router
-    .get('/games', (req, res, next) => {
-      Game.find()
+    .get('/batches', (req, res, next) => {
+      Batch.find()
         // Newest games first
         .sort({ createdAt: -1 })
         // Send the data in JSON format
-        .then((games) => res.json(games))
+        .then((batches) => res.json(batches))
         // Throw a 500 error if something goes wrong
         .catch((error) => next(error))
     })
-    .get('/games/:id', (req, res, next) => {
+    .get('/batches/:id', (req, res, next) => {
       const id = req.params.id
 
-      Game.findById(id)
+      Batch.findById(id)
         .then((game) => {
           if (!game) { return next() }
           res.json(game)
         })
         .catch((error) => next(error))
     })
-    .post('/games', authenticate, (req, res, next) => {
-      const newGame = {
+    .post('/batches', authenticate, (req, res, next) => {
+      const newBatch = {
         userId: req.account._id,
         players: [{
           userId: req.account._id,
@@ -38,7 +38,7 @@ module.exports = io => {
         board: Array(100).fill(0)
       }
 
-      Game.create(newGame)
+      Batch.create(newBatch)
         .then((game) => {
           io.emit('action', {
             type: 'GAME_CREATED',
@@ -48,11 +48,11 @@ module.exports = io => {
         })
         .catch((error) => next(error))
     })
-    .put('/games/:id', authenticate, (req, res, next) => {
+    .put('/batches/:id', authenticate, (req, res, next) => {
       const id = req.params.id
-      const updatedGame = req.body
+      const updatedBatch = req.body
 
-      Game.findByIdAndUpdate(id, { $set: updatedGame }, { new: true })
+      Batch.findByIdAndUpdate(id, { $set: updatedBatch }, { new: true })
         .then((game) => {
           io.emit('action', {
             type: 'GAME_UPDATED',
@@ -62,16 +62,16 @@ module.exports = io => {
         })
         .catch((error) => next(error))
     })
-    .patch('/games/:id', authenticate, (req, res, next) => {
+    .patch('/batches/:id', authenticate, (req, res, next) => {
       const id = req.params.id
-      const patchForGame = req.body
+      const patchForBatch = req.body
       const index = req.body.index
       const type = req.body.type
       const player = req.body.currentPlayer
 
 
 
-      Game.findById(id)
+      Batch.findById(id)
         .then((game) => {
           if (!game) { return next() }
           var horizontal = [...game.horizontal]
@@ -116,9 +116,9 @@ module.exports = io => {
         )}
 
 
-          const updatedGame = { ...game, horizontal: horizontal, vertical: vertical, board: board, turn: turn }
+          const updatedBatch = { ...game, horizontal: horizontal, vertical: vertical, board: board, turn: turn }
 
-          Game.findByIdAndUpdate(id, { $set: updatedGame }, { new: true })
+          Batch.findByIdAndUpdate(id, { $set: updatedBatch }, { new: true })
             .then((game) => {
               io.emit('action', {
                 type: 'GAME_UPDATED',
@@ -130,9 +130,9 @@ module.exports = io => {
         })
         .catch((error) => next(error))
     })
-    .delete('/games/:id', authenticate, (req, res, next) => {
+    .delete('/batches/:id', authenticate, (req, res, next) => {
       const id = req.params.id
-      Game.findByIdAndRemove(id)
+      Batch.findByIdAndRemove(id)
         .then(() => {
           io.emit('action', {
             type: 'GAME_REMOVED',
