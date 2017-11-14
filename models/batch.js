@@ -17,6 +17,7 @@ const studentSchema = new Schema({
 
 const batchSchema = new Schema({
   students: [studentSchema],
+  batchNumber: { type: Number },
   startDate: { type: Date, default: Date.now },
   endDate: { type: Date, default: Date.now },
   userId: { type: Schema.Types.ObjectId, ref: 'users' },
