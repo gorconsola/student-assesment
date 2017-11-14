@@ -11,7 +11,8 @@
   },
   "scripts": {
     "start": "node .",
-    "dev": "nodemon --inspect ."
+    "dev": "nodemon --inspect .",
+    "seed": "node db/seed.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
