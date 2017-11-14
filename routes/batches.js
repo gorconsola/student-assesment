@@ -13,7 +13,7 @@ router.get('/batches', (req, res, next) => {
 
   .get('/batches/:id', (req, res, next) => {
     const id = req.params.id
-
+    console.log(req.params, req.body)
     Batch.findById(id)
       .then((batch) => {
         if (!batch) { return next() }
@@ -23,7 +23,7 @@ router.get('/batches', (req, res, next) => {
   })
   .post('/batches', authenticate, (req, res, next) => {
     let newBatch = req.body
-
+    console.log('routes batch', req.body)
     Batch.create(newBatch)
       .then((batch) => res.json(batch))
       .catch((error) => next(error))
