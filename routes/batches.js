@@ -48,10 +48,8 @@ router.get('/batches', (req, res, next) => {
           var students = [...batch.students, student]
           console.log("STUDENTS BEFORE SHUFFLE: " + students)
 
-          // const newStudents = students.push(student)
-          // console.log("STUDENTS BEFORE SHUFFLE: " + students)
-
           const updatedBatch = { ...batch, students: students }
+          
           console.log("UPDATED BATCH: ", updatedBatch )
 
           Batch.findByIdAndUpdate(id, { $set: updatedBatch }, { new: true })
