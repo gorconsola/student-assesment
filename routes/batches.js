@@ -31,9 +31,9 @@ router.get('/batches', (req, res, next) => {
 
   .patch('/batches/:id', authenticate, (req, res, next) => {
       const type = req.body.type
+      console.log("TYPE: ", type)
       const id = req.body.batchId
       const studentId = req.body.student._id
-      console.log("STUDENT ID: ",studentId)
 
       const Student = {
         name: req.body.student.name,
@@ -56,7 +56,7 @@ router.get('/batches', (req, res, next) => {
               students[indexOfstudent] = Student;
             }
           } else {
-            var students = [...batch.students, Student]
+            var students = [Student, ...batch.students]
           }
 
           const updatedBatch = { ...batch, students: students }
