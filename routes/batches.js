@@ -30,7 +30,7 @@ router.get('/batches', (req, res, next) => {
   })
 
   .patch('/batches/:id', authenticate, (req, res, next) => {
-
+      const type = req.body.type
       const id = req.body.batchId
       const studentId = req.body.student._id
       console.log("STUDENT ID: ",studentId)
@@ -42,7 +42,6 @@ router.get('/batches', (req, res, next) => {
         _id: req.body.student._id
       }
 
-      console.log("Student.evaluations: ", Student.evaluations)
       const patchForBatch = req.body
 
 
@@ -50,10 +49,14 @@ router.get('/batches', (req, res, next) => {
         .then((batch) => {
           if (!batch) { return next() }
 
-          var students = [...batch.students]
-          var indexOfstudent = students.findIndex(student => student._id.toString() === Student._id.toString());
-          if (indexOfstudent !== -1) {
-            students[indexOfstudent] = Student;
+          if(type === "rateStudent"){
+            var students = [...batch.students]
+            var indexOfstudent = students.findIndex(student => student._id.toString() === Student._id.toString());
+            if (indexOfstudent !== -1) {
+              students[indexOfstudent] = Student;
+            }
+          } else {
+            var students = [...batch.students, Student]
           }
 
           const updatedBatch = { ...batch, students: students }
