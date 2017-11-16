@@ -32,22 +32,31 @@ router.get('/batches', (req, res, next) => {
   .patch('/batches/:id', authenticate, (req, res, next) => {
 
       const id = req.body.batchId
-      const student = {
+      const studentId = req.body.student._id
+      console.log("STUDENT ID: ",studentId)
+
+      const Student = {
         name: req.body.student.name,
         image_url: req.body.student.image_url,
-        evaluations: req.body.student.evaluations
+        evaluations: req.body.student.evaluations,
+        _id: req.body.student._id
       }
 
+      console.log("Student.evaluations: ", Student.evaluations)
       const patchForBatch = req.body
-
 
 
       Batch.findById(id)
         .then((batch) => {
           if (!batch) { return next() }
-          var students = [...batch.students, student]
-          const updatedBatch = { ...batch, students: students }
 
+          var students = [...batch.students]
+          var indexOfstudent = students.findIndex(student => student._id.toString() === Student._id.toString());
+          if (indexOfstudent !== -1) {
+            students[indexOfstudent] = Student;
+          }
+
+          const updatedBatch = { ...batch, students: students }
 
           Batch.findByIdAndUpdate(id, { $set: updatedBatch }, { new: true })
             .then((batch) => res.json(updatedBatch))
