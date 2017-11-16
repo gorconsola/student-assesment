@@ -30,27 +30,24 @@ router.get('/batches', (req, res, next) => {
   })
 
   .patch('/batches/:id', authenticate, (req, res, next) => {
-      // console.log("Send student: " + req.body.student)
 
       const id = req.body.batchId
       const student = {
         name: req.body.student.name,
-        image_url: req.body.student.image_url
+        image_url: req.body.student.image_url,
+        evaluations: req.body.student.evaluations
       }
-      console.log("STUDENT?!: " + student.name)
+
       const patchForBatch = req.body
-      console.log("patchForBatch: " + patchForBatch)
+
 
 
       Batch.findById(id)
         .then((batch) => {
           if (!batch) { return next() }
           var students = [...batch.students, student]
-          console.log("STUDENTS BEFORE SHUFFLE: " + students)
-
           const updatedBatch = { ...batch, students: students }
-          
-          console.log("UPDATED BATCH: ", updatedBatch )
+
 
           Batch.findByIdAndUpdate(id, { $set: updatedBatch }, { new: true })
             .then((batch) => res.json(updatedBatch))

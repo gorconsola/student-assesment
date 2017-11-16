@@ -7,40 +7,40 @@
       {
         "name": "Elizbid McGeeFly",
         "evaluations": [
-          {"evaluations": "0"},
-          {"evaluations": "1"},
-          {"evaluations": "3"},
-          {"evaluations": "1"},
-          {"evaluations": "1"},
-          {"evaluations": "2"},
-          {"evaluations": "2"},
-          {"evaluations": "2"}
+          {"evaluation": "0"},
+          {"evaluation": "1"},
+          {"evaluation": "3"},
+          {"evaluation": "1"},
+          {"evaluation": "1"},
+          {"evaluation": "2"},
+          {"evaluation": "2"},
+          {"evaluation": "1"}
         ]
       },
       {
         "name": "Snarf Fonkz",
         "evaluations": [
-          {"evaluations": "0"},
-          {"evaluations": "1"},
-          {"evaluations": "3"},
-          {"evaluations": "1"},
-          {"evaluations": "1"},
-          {"evaluations": "2"},
-          {"evaluations": "2"},
-          {"evaluations": "2"}
+          {"evaluation": "0"},
+          {"evaluation": "1"},
+          {"evaluation": "3"},
+          {"evaluation": "1"},
+          {"evaluation": "1"},
+          {"evaluation": "2"},
+          {"evaluation": "2"},
+          {"evaluation": "3"}
         ]
       },
       {
         "name": "Cornelius Lazerus",
         "evaluations": [
-          {"evaluations": "0"},
-          {"evaluations": "1"},
-          {"evaluations": "3"},
-          {"evaluations": "1"},
-          {"evaluations": "1"},
-          {"evaluations": "2"},
-          {"evaluations": "2"},
-          {"evaluations": "2"}
+          {"evaluation": "0"},
+          {"evaluation": "1"},
+          {"evaluation": "3"},
+          {"evaluation": "1"},
+          {"evaluation": "1"},
+          {"evaluation": "2"},
+          {"evaluation": "2"},
+          {"evaluation": "2 "}
         ]
       }
     ]
