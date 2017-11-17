@@ -55,7 +55,15 @@ router.get('/batches', (req, res, next) => {
             if (indexOfstudent !== -1) {
               students[indexOfstudent] = Student;
             }
-          } else {
+          } else if (type === "deleteStudent"){
+            var students = [...batch.students]
+            var indexOfStudent = students.findIndex(student => student._id.toString() === Student._id.toString());
+            console.log('index', indexOfStudent)
+            if (indexOfstudent !== -1) {
+              students.splice(indexOfStudent, 1)
+            }
+          }
+           else {
             var students = [Student, ...batch.students]
           }
 
